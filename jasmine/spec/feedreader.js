@@ -94,7 +94,6 @@ $(function() {
        it('has single entry within feed', function(){
          expect($('.entry .feed')).toBeDefined();
        });
-
     });
 
 
@@ -104,7 +103,26 @@ $(function() {
        * by the loadFeed function that the content actually changes.
        * Remember, loadFeed() is asynchronous.
        */
-    });
+        var entriesStart;
+        var entriesEnd;
+       $('.feed').empty();
+       beforeEach(function(done){
+         loadFeed(0, function(){
+         entriesStart = $('.feed').find(allFeeds.url);
+           done();
+         });
+              });
+       afterEach(function() {
+         loadFeed(1, function(){
+         entriesEnd = $('.feed').find(allFeeds.url);
+          done();
+        });
+             });
 
+       it('new feed is not the same as the old', function(done){
+         expect(entriesStart).not.toEqual(entriesEnd);
+         done();
+       });
+    });
 
 }());
