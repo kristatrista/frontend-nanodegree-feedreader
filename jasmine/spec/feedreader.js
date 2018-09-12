@@ -85,18 +85,16 @@ $(function() {
        $('.feed').empty();
 
        beforeEach(function(done){
+
          loadFeed(0, function(){
          entriesStart = $('.feed').find(allFeeds.url);
-           done();
 
            loadFeed(1, function(){
            entriesEnd = $('.feed').find(allFeeds.url);
-            done();
           });
             });
+            done();
               });
-
-
 
        it('new feed is not the same as the old', function(){
          expect(entriesStart).not.toEqual(entriesEnd);
